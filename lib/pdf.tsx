@@ -1,7 +1,22 @@
 import { createElement, type ReactElement } from "react";
-import { Document, Image, Page, StyleSheet, Text, View, renderToBuffer, type DocumentProps } from "@react-pdf/renderer";
+import path from "node:path";
+import { Document, Font, Image, Page, StyleSheet, Text, View, renderToBuffer, type DocumentProps } from "@react-pdf/renderer";
 import type { DocumentData } from "@/components/quotation-document";
 import { formatDate, formatMoney, formatMZN, formatPercentFromBp, formatQuantity } from "@/lib/money";
+
+const FONT_DIR = path.join(process.cwd(), "assets", "fonts");
+
+Font.register({
+  family: "PlexSans",
+  fonts: [
+    { src: path.join(FONT_DIR, "IBMPlexSans-Regular.ttf"), fontWeight: 400 },
+    { src: path.join(FONT_DIR, "IBMPlexSans-Bold.ttf"), fontWeight: 700 },
+  ],
+});
+Font.register({
+  family: "PlexSans-Bold",
+  src: path.join(FONT_DIR, "IBMPlexSans-Bold.ttf"),
+});
 
 const NAVY = "#163A5F";
 const GREEN = "#10B981";
@@ -14,7 +29,7 @@ const styles = StyleSheet.create({
     paddingBottom: 52,
     paddingHorizontal: 38,
     fontSize: 9.2,
-    fontFamily: "Helvetica",
+    fontFamily: "PlexSans",
     color: "#0F172A",
     lineHeight: 1.45,
   },
@@ -38,13 +53,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRadius: 4,
   },
-  brandName: { fontSize: 14, color: NAVY, fontFamily: "Helvetica-Bold" },
+  brandName: { fontSize: 14, color: NAVY, fontFamily: "PlexSans-Bold" },
   small: { fontSize: 8, color: MUTED, marginTop: 1.5 },
-  docTitle: { fontSize: 8, letterSpacing: 2, color: GREEN, fontFamily: "Helvetica-Bold", textAlign: "right" },
-  docNumber: { fontSize: 12, fontFamily: "Courier-Bold", textAlign: "right", marginTop: 3 },
+  docTitle: { fontSize: 8, letterSpacing: 2, color: GREEN, fontFamily: "PlexSans-Bold", textAlign: "right" },
+  docNumber: { fontSize: 12, fontFamily: "PlexSans-Bold", textAlign: "right", marginTop: 3 },
   section: { flexDirection: "row", marginTop: 14 },
   sectionCol: { flex: 1 },
-  label: { fontSize: 7.5, letterSpacing: 1, color: MUTED, fontFamily: "Helvetica-Bold" },
+  label: { fontSize: 7.5, letterSpacing: 1, color: MUTED, fontFamily: "PlexSans-Bold" },
   value: { fontSize: 9.5, marginTop: 2 },
   tableHeader: {
     flexDirection: "row",
@@ -53,7 +68,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingBottom: 5,
   },
-  th: { fontSize: 7.5, color: MUTED, fontFamily: "Helvetica-Bold", letterSpacing: 0.8 },
+  th: { fontSize: 7.5, color: MUTED, fontFamily: "PlexSans-Bold", letterSpacing: 0.8 },
   row: { flexDirection: "row", borderBottomWidth: 0.6, borderBottomColor: "#F1F5F9", paddingVertical: 6 },
   desc: { width: "45%", paddingRight: 6 },
   qty: { width: "10%", textAlign: "right", paddingRight: 6 },
@@ -72,8 +87,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingTop: 6,
   },
-  grandLabel: { fontSize: 9, fontFamily: "Helvetica-Bold", color: NAVY, letterSpacing: 0.8 },
-  grandValue: { fontSize: 14, fontFamily: "Helvetica-Bold", color: NAVY },
+  grandLabel: { fontSize: 9, fontFamily: "PlexSans-Bold", color: NAVY, letterSpacing: 0.8 },
+  grandValue: { fontSize: 14, fontFamily: "PlexSans-Bold", color: NAVY },
   notesWrap: { flexDirection: "row", marginTop: 18, paddingTop: 10, borderTopWidth: 0.6, borderTopColor: LINE },
   noteCol: { flex: 1, paddingRight: 12 },
   noteText: { fontSize: 8.2, color: "#334155", marginTop: 3 },
@@ -147,7 +162,7 @@ export function QuotePdf({
         <View style={styles.section}>
           <View style={styles.sectionCol}>
             <Text style={styles.label}>CLIENTE</Text>
-            <Text style={[styles.value, { fontFamily: "Helvetica-Bold" }]}>{data.customer.name}</Text>
+            <Text style={[styles.value, { fontFamily: "PlexSans-Bold" }]}>{data.customer.name}</Text>
             {data.customer.company_name ? <Text style={styles.small}>{data.customer.company_name}</Text> : null}
             {data.customer.nuit ? <Text style={styles.small}>NUIT: {data.customer.nuit}</Text> : null}
             {data.customer.address ? <Text style={styles.small}>{data.customer.address}</Text> : null}
@@ -178,7 +193,7 @@ export function QuotePdf({
             <Text style={styles.unit}>{item.unit}</Text>
             <Text style={styles.price}>{formatMoney(item.unitPriceCents)}</Text>
             <Text style={styles.disc}>{item.discountBp ? `${formatPercentFromBp(item.discountBp)}%` : "-"}</Text>
-            <Text style={[styles.total, { fontFamily: "Helvetica-Bold" }]}>{formatMoney(item.lineTotalCents)}</Text>
+            <Text style={[styles.total, { fontFamily: "PlexSans-Bold" }]}>{formatMoney(item.lineTotalCents)}</Text>
           </View>
         ))}
 

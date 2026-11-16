@@ -2,7 +2,8 @@
 
 @theme {
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-heading: "IBM Plex Serif", Georgia, serif;
+  --font-heading: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --color-navy: #163a5f;
   --color-navy-dark: #0f2a45;
   --color-navy-soft: #eaf0f6;
